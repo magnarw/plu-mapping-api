@@ -39,5 +39,5 @@ stages:
   pool:
     vmImage: 'windows-latest'
 - stage: "Deploy test"
-  displayname : "Deploy application"
+  displayName : "Deploy application"
 
