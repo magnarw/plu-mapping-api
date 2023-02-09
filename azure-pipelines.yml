@@ -36,6 +36,11 @@ stages:
           inputs:
             platform: '$(buildPlatform)'
             configuration: '$(buildConfiguration)'
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
   pool:
     vmImage: 'windows-latest'
 - stage: "DeployTest"
@@ -43,6 +48,12 @@ stages:
   jobs:
     - job: "deploy"
       steps:
-         - script: echo Deploy!
+        - task: AzureRmWebAppDeployment@4
+          inputs:
+            ConnectionType: 'AzureRM'
+            azureSubscription: 'sandbox-001(a2312d3e-8b57-4d32-a142-1b537848a08a)'
+            appType: 'webApp'
+            WebAppName: 'devops-test-enabler'
+            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
 
