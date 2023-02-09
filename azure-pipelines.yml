@@ -38,6 +38,6 @@ stages:
             configuration: '$(buildConfiguration)'
   pool:
     vmImage: 'windows-latest'
-- stage: "Deploy test"
+- stage: "DeployTest"
   displayName : "Deploy application"
 
