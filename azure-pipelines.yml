@@ -6,8 +6,7 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'windows-latest'
+
 
 variables:
   solution: '**/*.sln'
@@ -37,6 +36,8 @@ stages:
           inputs:
             platform: '$(buildPlatform)'
             configuration: '$(buildConfiguration)'
+  pool:
+    vmImage: 'windows-latest'
 - stage: "Deploy test"
   displayname : "Deploy application"
 
