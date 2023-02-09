@@ -40,4 +40,9 @@ stages:
     vmImage: 'windows-latest'
 - stage: "DeployTest"
   displayName : "Deploy application"
+  jobs:
+    - job: "deploy"
+      steps:
+         - script: echo Deploy!
+
 
