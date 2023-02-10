@@ -54,6 +54,6 @@ stages:
             azureSubscription: 'sandbox-001(a2312d3e-8b57-4d32-a142-1b537848a08a)'
             appType: 'webApp'
             WebAppName: 'devops-test-enabler'
-            Package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            Package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
 
 
