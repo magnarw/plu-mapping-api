@@ -37,3 +37,12 @@ jobs:
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Azure WebApp
+        uses: Azure/webapps-deploy@v2.2.6
+        with:
+          # Name of the Azure Web App
+          app-name: devops-test-enabler
+          # Applies to Web Apps(Windows and Linux) and Web App Containers(linux). Multi container scenario not supported. Publish profile (*.publishsettings) file contents with Web Deploy secrets
+          package: .net-app
+          resource-group-name: magnar-rg
+      
