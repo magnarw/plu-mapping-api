@@ -24,7 +24,7 @@ jobs:
          path: ${{env.DOTNET_ROOT}}/pluapi
   deploy: 
     runs-on : ubuntu-latest
-     steps: 
+    steps: 
       - name: Download a Build Artifact
         uses: actions/download-artifact@v3.0.2
         with:
