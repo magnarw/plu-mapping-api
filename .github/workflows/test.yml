@@ -25,7 +25,14 @@ jobs:
   deploy: 
     runs-on : ubuntu-latest
      steps: 
-      - name : AzureAppServieDeploy
-        uses 
-        
-      
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.2
+        with:
+          # Artifact name
+          name: .net-app
+          path: .net-app
+      - name: Azure Login
+        uses: Azure/login@v1.4.6
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
