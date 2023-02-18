@@ -3,6 +3,10 @@ name : plu-mapping
 
 on: [push]
 
+env:
+  TEMPLATE-FILE: iac/azuredeploy.json
+  PARAMTER-FILE: parameters/azuredeploy.json
+
 jobs:
   buildandtest:
     runs-on: ubuntu-latest
@@ -22,6 +26,11 @@ jobs:
         with:
          name: .net-app
          path: ${{env.DOTNET_ROOT}}/pluapi
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+         name: arm-template
+         path: ${{ env.TEMPLATE-FILE }}
   deploy: 
     runs-on : ubuntu-latest
     needs: buildandtest
@@ -32,16 +41,29 @@ jobs:
           # Artifact name
           name: .net-app
           path: .net-app
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+         name: arm-template
+         path: arm-template
       - name: Azure Login
         uses: Azure/login@v1.4.6
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy Azure Resource Manager (ARM) Template
+        uses: Azure/arm-deploy@v1.0.9
+        with:
+          subscriptionId: ${{ env.SUBSCRIPTION-ID }}
+          resourceGroupName: ${{ env.RESOURCE-GROUP }}
+          template: arm-template/azuredeploy.json
+          parameters: arm-template/azuredeploy.parameters.json
+          failOnStdErr: false   
       - name: Azure WebApp
         uses: Azure/webapps-deploy@v2.2.6
         with:
           # Name of the Azure Web App
-          app-name: devops-test-enabler
+          app-name: magnartesternoegreier
           # Applies to Web Apps(Windows and Linux) and Web App Containers(linux). Multi container scenario not supported. Publish profile (*.publishsettings) file contents with Web Deploy secrets
           package: .net-app
           resource-group-name: magnar-rg
