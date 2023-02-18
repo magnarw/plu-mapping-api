@@ -6,7 +6,10 @@ on: [push]
 env:
   TEMPLATE-FILE: iac/azuredeploy.json
   PARAMTER-FILE: parameters/azuredeploy.json
-
+  RESOURCE-GROUP: test-rg
+  LOCATION: westeurope
+  SUBSCRIPTION-ID: c9490d92-aa64-4485-b2b3-6ab98110f1a0
+  
 jobs:
   buildandtest:
     runs-on: ubuntu-latest
