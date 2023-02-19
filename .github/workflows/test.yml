@@ -4,7 +4,7 @@ name : plu-mapping
 on: [push]
 
 env:
-  TEMPLATE-FILE: iac/azuredeploy.json
+  TEMPLATE-FILE: iac
   PARAMTER-FILE: parameters/azuredeploy.json
   RESOURCE-GROUP: test-rg
   LOCATION: westeurope
