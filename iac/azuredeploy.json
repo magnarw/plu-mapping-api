@@ -82,6 +82,20 @@
       }
     },
     "resources": [
+       {
+        "name": "linkedTemplate",
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2018-05-01",
+        "properties": {
+            "mode": "Incremental",
+            "templateLink": {
+                "uri":"https://csb10037ffe97a8d567.blob.core.windows.net/file/template.json?sp=r&st=2023-02-19T18:52:58Z&se=2023-03-11T02:52:58Z&spr=https&sv=2021-06-08&sr=b&sig=4IchfhKh7A3m4R5oBtznEQ5Fy0TekePCOvTLW%2F3PqM8%3D"
+            },
+            "parameters": {
+                "location":{"value": "[parameters('location')]"}
+            }
+          }
+      },
       {
         "type": "Microsoft.Web/serverfarms",
         "apiVersion": "2022-03-01",
