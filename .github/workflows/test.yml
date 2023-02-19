@@ -69,5 +69,5 @@ jobs:
           app-name: magnartesternoegreier
           # Applies to Web Apps(Windows and Linux) and Web App Containers(linux). Multi container scenario not supported. Publish profile (*.publishsettings) file contents with Web Deploy secrets
           package: .net-app
-          resource-group-name: magnar-rg
+          resource-group-name: test-rg
       
