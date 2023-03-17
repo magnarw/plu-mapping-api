@@ -1,16 +1,18 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
-WORKDIR /app
-EXPOSE 80
-FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
-WORKDIR /src
-COPY ["Api.csproj", "./"]
-RUN dotnet restore "./Api.csproj"
-COPY . .
-WORKDIR "/src/"
-FROM build AS publish
-RUN dotnet publish "Api.csproj" -c Release -o /app/publish
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-FROM base AS final
+ENV PORT 8080
+EXPOSE 8080
+
+ENV ASPNETCORE_URLS "http://*:${PORT}"
+
+WORKDIR /src
+COPY . ./
+RUN dotnet restore
+RUN dotnet publish -c Release -o out
+    
+    
+# Serve Stage
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Api.dll"]
+COPY --from=build /src/out .
+ENTRYPOINT [ "dotnet", "Api.dll" ]
